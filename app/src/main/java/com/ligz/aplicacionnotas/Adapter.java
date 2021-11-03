@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ligz.aplicacionnotas.entities.Model;
 import com.ligz.aplicacionnotas.entities.Note;
 
 import java.util.List;
@@ -19,9 +20,10 @@ import java.util.List;
 public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     Context context;
     Activity activity;
-    List<Note> notesList;
+    List<Model> notesList;
+    //List<Note> notesList;
 
-    public Adapter(Context context, Activity activity, List<Note> notesList) {
+    public Adapter(Context context, Activity activity, List<Model> notesList) {
         this.context = context;
         this.activity = activity;
         this.notesList = notesList;
@@ -37,7 +39,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.title.setText(notesList.get(position).getTitle());
-        holder.descrip.setText(notesList.get(position).getNote_text());
+        holder.descrip.setText(notesList.get(position).getDescription());
         //añadir fecha
     }
 

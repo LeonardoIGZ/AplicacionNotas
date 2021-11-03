@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.ligz.aplicacionnotas.dao.NoteDao;
 import com.ligz.aplicacionnotas.database.DataBaseNote;
+import com.ligz.aplicacionnotas.database.DataBaseSQL;
 import com.ligz.aplicacionnotas.entities.Note;
 
 public class AddNotes extends AppCompatActivity {
@@ -32,7 +33,20 @@ public class AddNotes extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                /*esto no esta
                 guardar();
+                */
+                if(!TextUtils.isEmpty(titulo.getText().toString()) && !TextUtils.isEmpty(descrip.getText().toString())){
+                    DataBaseSQL db = new DataBaseSQL(AddNotes.this);
+                    db.addNotes(titulo.getText().toString(), descrip.getText().toString());
+
+                    Intent intent = new Intent(AddNotes.this, MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
+                }else{
+                    Toast.makeText(AddNotes.this, "Se necesitan los 2 campos", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

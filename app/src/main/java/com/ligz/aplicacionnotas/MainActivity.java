@@ -1,23 +1,29 @@
 package com.ligz.aplicacionnotas;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Delete;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.ligz.aplicacionnotas.database.DataBaseNote;
+import com.ligz.aplicacionnotas.database.DataBaseSQL;
+import com.ligz.aplicacionnotas.entities.Model;
 import com.ligz.aplicacionnotas.entities.Note;
 
 import java.util.ArrayList;
@@ -27,7 +33,9 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     FloatingActionButton fab;
     Adapter adapter;
-    List<Note> noteList;
+    List<Model> notesList;
+    //List<Note> noteList;
+    DataBaseSQL dataBaseSQL;
 
     public static final int REQUEST_CODE_ADD_NOTE = 1;
 
@@ -39,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view);
         fab = findViewById(R.id.fab);
 
+        //A esto no le movi
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,12 +60,30 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        noteList = new ArrayList<>();
+
+        notesList = new ArrayList<>();
+
+        dataBaseSQL=new DataBaseSQL(this);
+        fetchAllNotesFromDatabase();
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new Adapter(this, MainActivity.this, noteList);
+        adapter = new Adapter(this, MainActivity.this, notesList);
         recyclerView.setAdapter(adapter);
     }
 
+    void fetchAllNotesFromDatabase(){
+        Cursor cursor = dataBaseSQL.readAllData();
+
+        if(cursor.getCount()==0){
+            Toast.makeText(this, "No hay datos para mostrar", Toast.LENGTH_SHORT).show();
+        }else{
+            while(cursor.moveToNext()){
+                notesList.add(new Model(cursor.getString(0),cursor.getString(1),cursor.getString(2)));
+            }
+        }
+    }
+
+    //De aqui en adelante no toque nada
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.option_menu, menu);
@@ -82,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    private void mostarNotas(final int requestCode, final boolean isDeleted) {
+    /*private void mostarNotas(final int requestCode, final boolean isDeleted) {
 
         @SuppressLint("StaticFieldLeak")
         class obtenerNotas extends AsyncTask<Void, Void, List<Note>> {
@@ -95,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
             protected void onPostExecute(List<Note> notas) {
                 super.onPostExecute(notas);
                 if (requestCode == REQUEST_CODE_ADD_NOTE) {
-                    noteList.add(0, notas.get(0));
+                    notesList.add(0, notas.get(0));
                     adapter.notifyItemInserted(0);
                     recyclerView.smoothScrollToPosition(0);
                 }
@@ -103,9 +130,9 @@ public class MainActivity extends AppCompatActivity {
 
         }
         new obtenerNotas().execute();
-    }
+    }*/
 
-    @Override
+    /*@Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_ADD_NOTE && resultCode == RESULT_OK) {
@@ -114,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
             if (data != null) {
                 mostarNotas(REQUEST_CODE_UPDATE_NOTE, data.getBooleanExtra("isNoteDeleted", false));
             }
-        } */
-    }
+        }
+    }*/
 
 }
