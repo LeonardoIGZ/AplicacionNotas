@@ -53,10 +53,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent =  new Intent(MainActivity.this, AddNotes.class);
                 startActivity(intent);
-                startActivityForResult(
+                /*startActivityForResult(
                         new Intent(MainActivity.this, AddNotes.class),
                         REQUEST_CODE_ADD_NOTE
-                );
+                );*/
             }
         });
 
@@ -107,6 +107,22 @@ public class MainActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(listener);
 
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId()==R.id.delete_all){
+            deleteAllNotes();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void deleteAllNotes(){
+        DataBaseSQL db = new DataBaseSQL(MainActivity.this);
+        db.deleteAllNotes();
+
+        recreate();
     }
 
     /*private void mostarNotas(final int requestCode, final boolean isDeleted) {

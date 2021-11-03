@@ -29,9 +29,9 @@ public class DataBaseSQL extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         String query = "CREATE TABLE " + TableName +
-                "(" +ColumnId + "INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                ColumnTitle + "TEXT, " +
-                ColumnDescription + "TEXT);";
+                "(" +ColumnId + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                ColumnTitle + " TEXT, " +
+                ColumnDescription + " TEXT);";
 
         db.execSQL(query);
 
@@ -68,6 +68,27 @@ public class DataBaseSQL extends SQLiteOpenHelper {
             cursor = database.rawQuery(query, null);
         }
         return cursor;
+    }
+
+    public void deleteAllNotes(){
+        SQLiteDatabase database = this.getReadableDatabase();
+        String query = "DELETE FROM " + TableName;
+        database.execSQL(query);
+    }
+
+    public void updateNotes(String title, String description, String id){
+        SQLiteDatabase database=this.getWritableDatabase();
+
+        ContentValues cv=new ContentValues();
+        cv.put(ColumnTitle,title);
+        cv.put(ColumnDescription,description);
+
+        long result=database.update(TableName,cv,"id=?",new String[]{id});
+        if(result==-1){
+            Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(context, "Editado con exito", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

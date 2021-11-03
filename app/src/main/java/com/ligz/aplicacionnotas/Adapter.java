@@ -3,6 +3,7 @@ package com.ligz.aplicacionnotas;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,9 +38,22 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.title.setText(notesList.get(position).getTitle());
         holder.descrip.setText(notesList.get(position).getDescription());
+
+        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context,UpdateNotes.class);
+
+                intent.putExtra("title",notesList.get(position).getTitle());
+                intent.putExtra("description",notesList.get(position).getDescription());
+                intent.putExtra("id",notesList.get(position).getId());
+
+                activity.startActivity(intent);
+            }
+        });
         //añadir fecha
     }
 

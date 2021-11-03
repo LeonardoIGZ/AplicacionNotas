@@ -51,7 +51,7 @@ public class AddNotes extends AppCompatActivity {
         });
     }
 
-    private void guardar(){
+    /*private void guardar(){
         if(titulo.getText().toString().trim().isEmpty()){
             Toast.makeText(this, "El titulo no puede ser un campo vacio", Toast.LENGTH_SHORT).show();
             return;
@@ -70,7 +70,7 @@ public class AddNotes extends AppCompatActivity {
             miNota.setId(alReadyAvailableNote.getId());
         }*/
 
-        @SuppressLint("StaticFieldLeak")
+        /*@SuppressLint("StaticFieldLeak")
         class guardarNota extends AsyncTask<Void, Void, Void> {
             @Override
             protected Void doInBackground(Void...voids){
@@ -87,6 +87,6 @@ public class AddNotes extends AppCompatActivity {
             }
         }
         new  guardarNota().execute();
-    }
+    }*/
 
 }
