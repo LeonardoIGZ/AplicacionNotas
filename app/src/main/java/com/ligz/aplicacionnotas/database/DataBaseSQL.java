@@ -19,6 +19,7 @@ public class DataBaseSQL extends SQLiteOpenHelper {
     private static final String ColumnId="id";
     private static final String ColumnTitle="title";
     private static final String ColumnDescription="description";
+    private  static final String ColumnDate = "date";
 
     public DataBaseSQL(@Nullable Context context){
         super(context, DatabaseName, null, DatabaseVersion);
@@ -28,12 +29,15 @@ public class DataBaseSQL extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        String query = "CREATE TABLE " + TableName +
+        String sqlCommand = String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY AUTOINCREMENT, %s TEXT, %s TEXT, %s TEXT);",
+                TableName, ColumnId, ColumnTitle, ColumnDescription, ColumnDate);
+
+        /*String query = "CREATE TABLE " + TableName +
                 "(" +ColumnId + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 ColumnTitle + " TEXT, " +
-                ColumnDescription + " TEXT);";
+                ColumnDescription + " TEXT);";*/
 
-        db.execSQL(query);
+        db.execSQL(sqlCommand);
 
     }
 
@@ -43,12 +47,13 @@ public class DataBaseSQL extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addNotes(String title, String description){
+    public void addNotes(String title, String description, String date){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
         cv.put(ColumnTitle, title);
         cv.put(ColumnDescription, description);
+        cv.put(ColumnDate, date);
 
         long resultValue = db.insert(TableName, null, cv);
         

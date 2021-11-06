@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "No hay datos para mostrar", Toast.LENGTH_SHORT).show();
         }else{
             while(cursor.moveToNext()){
-                notesList.add(new Model(cursor.getString(0),cursor.getString(1),cursor.getString(2)));
+                notesList.add(new Model(cursor.getString(0),cursor.getString(1),cursor.getString(2), cursor.getString(3)));
             }
         }
     }

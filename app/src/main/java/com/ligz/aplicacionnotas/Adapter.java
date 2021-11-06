@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -46,8 +47,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> implemen
     public void onBindViewHolder(@NonNull MyViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.title.setText(notesList.get(position).getTitle());
         holder.descrip.setText(notesList.get(position).getDescription());
+        holder.date.setText(notesList.get(position).getDate());
 
-        holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
+        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context,UpdateNotes.class);
@@ -106,14 +108,15 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> implemen
     };
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
-    TextView title, descrip;
-    RelativeLayout relativeLayout;
+    TextView title, descrip, date;
+    LinearLayout linearLayout;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             title = itemView.findViewById(R.id.titulo);
             descrip = itemView.findViewById(R.id.descripcion);
-            relativeLayout = itemView.findViewById(R.id.layout_notas);
+            date = itemView.findViewById(R.id.date);
+            linearLayout = itemView.findViewById(R.id.layout_notas);
 
         }
     }

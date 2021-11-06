@@ -17,6 +17,10 @@ import com.ligz.aplicacionnotas.database.DataBaseNote;
 import com.ligz.aplicacionnotas.database.DataBaseSQL;
 import com.ligz.aplicacionnotas.entities.Note;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 public class AddNotes extends AppCompatActivity {
     EditText titulo, descrip;
     Button btnAdd;
@@ -38,7 +42,7 @@ public class AddNotes extends AppCompatActivity {
                 */
                 if(!TextUtils.isEmpty(titulo.getText().toString()) && !TextUtils.isEmpty(descrip.getText().toString())){
                     DataBaseSQL db = new DataBaseSQL(AddNotes.this);
-                    db.addNotes(titulo.getText().toString(), descrip.getText().toString());
+                    db.addNotes(titulo.getText().toString(), descrip.getText().toString(), new SimpleDateFormat("EEEE, dd  MMMM yyyy HH:mm a", Locale.getDefault()).format(new Date()));
 
                     Intent intent = new Intent(AddNotes.this, MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
