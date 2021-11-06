@@ -86,6 +86,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> implemen
                 for (Model item:newList){
                     if(item.getTitle().toLowerCase().contains(filterPattern)){
                         filteredList.add(item);
+                    }else if(item.getDescription().toLowerCase().contains(filterPattern)){
+                        filteredList.add(item);
                     }
                 }
             }
