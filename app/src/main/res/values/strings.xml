@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">AplicacionNotas</string>
+    <string name="app_name">My Notes</string>
+    <string name="notes_incomplete_fields">Please fill all the fields</string>
+    <string name="notes_no_data">There is no data to display</string>
+    <string name="searchbar_title">Search notes...</string>
+    <string name="note_delete">Note removed</string>
+    <string name="note_undo">Undo</string>
+    <string name="searchbar_delete">Delete all</string>
+    <string name="note_title">Title</string>
+    <string name="note_description">Description</string>
+    <string name="btn_edit">Edit</string>
+    <string name="btn_add">Add</string>
 </resources>

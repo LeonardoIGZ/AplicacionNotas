@@ -49,7 +49,7 @@ public class AddNotes extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }else{
-                    Toast.makeText(AddNotes.this, "Se necesitan los 2 campos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddNotes.this, R.string.notes_incomplete_fields, Toast.LENGTH_SHORT).show();
                 }
             }
         });

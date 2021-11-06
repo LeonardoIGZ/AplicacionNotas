@@ -108,8 +108,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> implemen
     };
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
-    TextView title, descrip, date;
-    LinearLayout linearLayout;
+        TextView title, descrip, date;
+        LinearLayout linearLayout;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
