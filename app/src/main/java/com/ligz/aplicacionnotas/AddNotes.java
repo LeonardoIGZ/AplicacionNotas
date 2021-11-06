@@ -14,7 +14,12 @@ import android.widget.Toast;
 
 import com.ligz.aplicacionnotas.dao.NoteDao;
 import com.ligz.aplicacionnotas.database.DataBaseNote;
+import com.ligz.aplicacionnotas.database.DataBaseSQL;
 import com.ligz.aplicacionnotas.entities.Note;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class AddNotes extends AppCompatActivity {
     EditText titulo, descrip;
@@ -32,12 +37,25 @@ public class AddNotes extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                /*esto no esta
                 guardar();
+                */
+                if(!TextUtils.isEmpty(titulo.getText().toString()) && !TextUtils.isEmpty(descrip.getText().toString())){
+                    DataBaseSQL db = new DataBaseSQL(AddNotes.this);
+                    db.addNotes(titulo.getText().toString(), descrip.getText().toString(), new SimpleDateFormat("EEEE, dd  MMMM yyyy HH:mm a", Locale.getDefault()).format(new Date()));
+
+                    Intent intent = new Intent(AddNotes.this, MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    finish();
+                }else{
+                    Toast.makeText(AddNotes.this, "Se necesitan los 2 campos", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
 
-    private void guardar(){
+    /*private void guardar(){
         if(titulo.getText().toString().trim().isEmpty()){
             Toast.makeText(this, "El titulo no puede ser un campo vacio", Toast.LENGTH_SHORT).show();
             return;
@@ -56,7 +74,7 @@ public class AddNotes extends AppCompatActivity {
             miNota.setId(alReadyAvailableNote.getId());
         }*/
 
-        @SuppressLint("StaticFieldLeak")
+        /*@SuppressLint("StaticFieldLeak")
         class guardarNota extends AsyncTask<Void, Void, Void> {
             @Override
             protected Void doInBackground(Void...voids){
@@ -73,6 +91,6 @@ public class AddNotes extends AppCompatActivity {
             }
         }
         new  guardarNota().execute();
-    }
+    }*/
 
 }
