@@ -96,4 +96,15 @@ public class DataBaseSQL extends SQLiteOpenHelper {
         }
     }
 
+    public void deleteOneItem(String id){
+        SQLiteDatabase sqLiteDatabase =  this.getWritableDatabase();
+        long result = sqLiteDatabase.delete(TableName, "id=?", new String[]{id});
+
+        if (result == -1){
+            Toast.makeText(context, "No eliminado", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(context, "Eliminado correctamente", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }
