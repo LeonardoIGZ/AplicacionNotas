@@ -121,4 +121,18 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> implemen
         }
     }
 
+    public List<Model> getNotesList(){
+        return notesList;
+    }
+
+    public void removeItem(int pos){
+        notesList.remove(pos);
+        notifyItemRemoved(pos);
+    }
+
+    public void restoreItem(Model item, int pos){
+        notesList.add(pos, item);
+        notifyItemInserted(pos);
+    }
+
 }
